@@ -2,18 +2,16 @@ spring:
   application:
     name: talentiq-backend
 
-  datasource:
-    url: ${DATABASE_URL:jdbc:h2:file:./data/talentiq;DB_CLOSE_DELAY=-1;MODE=MySQL;NON_KEYWORDS=USER}
-    username: ${DATABASE_USER:sa}
-    password: ${DATABASE_PASSWORD:}
-
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: update
     show-sql: false
     properties:
       hibernate:
         format_sql: true
+        jdbc:
+          time_zone: UTC
 
 server:
   port: ${PORT:8080}

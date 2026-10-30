@@ -1,14 +1,14 @@
 services:
   # ---------------------------------------------------------------------------
-  # 1. TalentIQ Unified Web Service (Backend + Frontend in a single free instance)
+  # 1. TalentIQ Unified Web Service (Backend API + React Frontend)
   # ---------------------------------------------------------------------------
   - type: web
-    name: talentiq-backend
+    name: talentiq-platform
     runtime: docker
     dockerfilePath: ./Dockerfile
     plan: free
     region: oregon
-    healthCheckPath: /api/ai/test
+    healthCheckPath: /api/test
     envVars:
       - key: PORT
         value: 8080
@@ -22,7 +22,7 @@ services:
         sync: false
 
   # ---------------------------------------------------------------------------
-  # 2. TalentIQ Frontend Static Site (Optional standalone CDN deployment)
+  # 2. TalentIQ Frontend (Static Site on Render CDN - Optional Standalone)
   # ---------------------------------------------------------------------------
   - type: web
     name: talentiq-frontend
