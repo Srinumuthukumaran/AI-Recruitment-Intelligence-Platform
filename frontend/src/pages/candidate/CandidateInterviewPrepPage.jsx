@@ -142,7 +142,7 @@ Difficulty: ${result.difficulty}
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-white tracking-tight flex items-center space-x-2">
-          <FileQuestion className="w-6 h-6 text-indigo-400" />
+          <FileQuestion className="w-6 h-6 text-purple-400" />
           <span>Interview Preparation Simulator</span>
         </h1>
         <p className="text-sm text-slate-400 mt-1">
@@ -153,7 +153,7 @@ Difficulty: ${result.difficulty}
       <ErrorAlert message={error} onRetry={handleGenerate} />
 
       {/* Control Card */}
-      <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+      <div className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] space-y-4 shadow-xl shadow-purple-950/20">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
@@ -162,7 +162,7 @@ Difficulty: ${result.difficulty}
             <select
               value={selectedJobId}
               onChange={(e) => setSelectedJobId(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs font-medium text-slate-200 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#172238] border border-white/[0.1] text-xs font-medium text-slate-200 focus:outline-none focus:border-purple-500"
             >
               {jobs.map((j) => (
                 <option key={j.id} value={String(j.id)}>
@@ -179,7 +179,7 @@ Difficulty: ${result.difficulty}
             <select
               value={difficulty}
               onChange={(e) => setDifficulty(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs font-medium text-slate-200 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#172238] border border-white/[0.1] text-xs font-medium text-slate-200 focus:outline-none focus:border-purple-500"
             >
               <option value="Junior / Entry-level">Junior / Entry-level</option>
               <option value="Mid-level">Mid-level (Recommended)</option>
@@ -189,11 +189,11 @@ Difficulty: ${result.difficulty}
           </div>
         </div>
 
-        <div className="flex items-center justify-end pt-3 border-t border-slate-800">
+        <div className="flex items-center justify-end pt-3 border-t border-white/[0.08]">
           <button
             onClick={handleGenerate}
             disabled={isGenerating || !selectedJobId}
-            className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50"
+            className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25 disabled:opacity-50"
           >
             {isGenerating ? (
               <>
@@ -226,7 +226,7 @@ Difficulty: ${result.difficulty}
             <div className="flex items-center space-x-2.5">
               <button
                 onClick={handleDownload}
-                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
+                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-[#172238] hover:bg-[#1f2d4a] text-slate-300 border border-white/[0.08] transition-colors"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download Prep Sheet</span>
@@ -235,7 +235,7 @@ Difficulty: ${result.difficulty}
               <button
                 onClick={handleGenerate}
                 disabled={isGenerating}
-                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 transition-colors"
+                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>New Set</span>
@@ -247,10 +247,10 @@ Difficulty: ${result.difficulty}
             {result.questions?.map((q, idx) => (
               <div
                 key={idx}
-                className="glass-card rounded-2xl p-5 border border-slate-800 space-y-3"
+                className="glass-card rounded-2xl p-5 border border-white/[0.08] bg-[#121A2B] space-y-3 shadow-xl shadow-purple-950/15"
               >
                 <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center space-x-1.5 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border border-indigo-500/30 bg-indigo-950/20 text-indigo-300">
+                  <span className="inline-flex items-center space-x-1.5 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border border-purple-500/30 bg-purple-950/30 text-purple-300">
                     {getCategoryIcon(q.category)}
                     <span>{q.category}</span>
                   </span>
@@ -258,7 +258,7 @@ Difficulty: ${result.difficulty}
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => handleCopy(q.question, idx)}
-                      className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+                      className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-white/[0.06] transition-colors"
                       title="Copy Question"
                     >
                       {copiedIdx === idx ? (
@@ -270,7 +270,7 @@ Difficulty: ${result.difficulty}
 
                     <button
                       onClick={() => toggleGuidance(idx)}
-                      className="inline-flex items-center space-x-1 text-xs text-indigo-400 hover:text-indigo-300 font-semibold px-2 py-1 rounded-lg hover:bg-indigo-950/30 transition-colors"
+                      className="inline-flex items-center space-x-1 text-xs text-purple-400 hover:text-purple-300 font-semibold px-2 py-1 rounded-lg hover:bg-purple-950/30 transition-colors"
                     >
                       {revealedGuidance[idx] ? (
                         <>
@@ -292,13 +292,13 @@ Difficulty: ${result.difficulty}
                 </h3>
 
                 {q.focusArea && (
-                  <p className="text-xs text-indigo-300">
+                  <p className="text-xs text-purple-300">
                     <strong>Evaluated Core Concept:</strong> {q.focusArea}
                   </p>
                 )}
 
                 {revealedGuidance[idx] && q.guidance && (
-                  <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                  <div className="p-3.5 rounded-xl bg-[#172238]/70 border border-white/[0.06] text-xs text-slate-300 leading-relaxed">
                     <strong className="text-emerald-400 block mb-1">Interview Tip & Answer Strategy:</strong>
                     {q.guidance}
                   </div>

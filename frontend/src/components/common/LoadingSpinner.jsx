@@ -3,9 +3,9 @@ import { Loader2 } from 'lucide-react';
 
 const LoadingSpinner = ({ message = 'Loading...', fullScreen = false, size = 'md' }) => {
   const sizeClasses = {
-    sm: 'w-5 h-5 text-indigo-400',
-    md: 'w-8 h-8 text-indigo-500',
-    lg: 'w-12 h-12 text-indigo-500',
+    sm: 'w-5 h-5 text-purple-400',
+    md: 'w-8 h-8 text-purple-400',
+    lg: 'w-12 h-12 text-purple-500',
   };
 
   const content = (
@@ -17,7 +17,7 @@ const LoadingSpinner = ({ message = 'Loading...', fullScreen = false, size = 'md
 
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#080B16]/85 backdrop-blur-sm">
         {content}
       </div>
     );

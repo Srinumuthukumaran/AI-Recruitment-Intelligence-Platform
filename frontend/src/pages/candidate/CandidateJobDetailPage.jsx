@@ -98,7 +98,7 @@ const CandidateJobDetailPage = () => {
 
           <Link
             to={`/candidate/interview?jobId=${job.id}`}
-            className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/20 transition-all"
+            className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/25 transition-all"
           >
             <FileQuestion className="w-3.5 h-3.5" />
             <span>Practice Interview Questions</span>
@@ -109,17 +109,17 @@ const CandidateJobDetailPage = () => {
       <ErrorAlert message={error} />
 
       {/* Main Job Card */}
-      <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800 space-y-6">
+      <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/[0.08] bg-[#121A2B] space-y-6 shadow-xl shadow-purple-950/20">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
           <div>
-            <div className="flex items-center space-x-2 text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">
+            <div className="flex items-center space-x-2 text-xs font-bold text-purple-400 uppercase tracking-wider mb-1">
               <Briefcase className="w-4 h-4" />
               <span>Job Opportunity #{job.id}</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-white">{job.title}</h1>
             <div className="mt-2.5 flex flex-wrap items-center gap-4 text-xs text-slate-300">
               <div className="flex items-center space-x-1.5">
-                <MapPin className="w-4 h-4 text-indigo-400" />
+                <MapPin className="w-4 h-4 text-sky-400" />
                 <span>{job.location || 'Remote'}</span>
               </div>
               <div className="flex items-center space-x-1.5">
@@ -136,14 +136,14 @@ const CandidateJobDetailPage = () => {
               <MatchScoreBadge score={match.matchScore} size="lg" />
             </div>
           ) : (
-            <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400">
+            <div className="p-3 rounded-xl bg-[#172238]/60 border border-white/[0.06] text-xs text-slate-400">
               Check out the Skill Gap tab to compare your resume directly!
             </div>
           )}
         </div>
 
         {/* Description */}
-        <div className="pt-4 border-t border-slate-800/80">
+        <div className="pt-4 border-t border-white/[0.08]">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
             Job Description & Responsibilities
           </h3>
@@ -153,7 +153,7 @@ const CandidateJobDetailPage = () => {
         </div>
 
         {/* Required Skills */}
-        <div className="pt-4 border-t border-slate-800/80">
+        <div className="pt-4 border-t border-white/[0.08]">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">
             Required Technical Skills
           </h3>
@@ -161,7 +161,7 @@ const CandidateJobDetailPage = () => {
             {job.requiredSkills?.split(',').map((skill, idx) => (
               <span
                 key={idx}
-                className="text-xs font-semibold bg-indigo-500/10 text-indigo-300 px-3 py-1 rounded-lg border border-indigo-500/20"
+                className="text-xs font-semibold bg-purple-500/10 text-purple-300 px-3 py-1 rounded-lg border border-purple-500/20"
               >
                 {skill.trim()}
               </span>
@@ -171,9 +171,9 @@ const CandidateJobDetailPage = () => {
 
         {/* Match Breakdown if evaluated */}
         {match && (
-          <div className="pt-6 border-t border-slate-800/80 grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="pt-6 border-t border-white/[0.08] grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Matching */}
-            <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/20">
+            <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
               <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center space-x-1.5 mb-2">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Skills You Possess</span>
@@ -184,7 +184,7 @@ const CandidateJobDetailPage = () => {
             </div>
 
             {/* Missing */}
-            <div className="p-4 rounded-xl bg-amber-950/20 border border-amber-500/20">
+            <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-500/30">
               <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center space-x-1.5 mb-2">
                 <AlertCircle className="w-4 h-4" />
                 <span>Gaps to Address</span>

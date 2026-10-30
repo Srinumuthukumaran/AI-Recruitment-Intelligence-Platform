@@ -15,6 +15,8 @@ import {
   Loader2,
   ExternalLink,
   ChevronRight,
+  Award,
+  X,
 } from 'lucide-react';
 import jobService from '../../services/jobService';
 import matchService from '../../services/matchService';
@@ -59,7 +61,7 @@ const JobDetailPage = () => {
       setRankedMatches(matchesData || []);
       setAllCandidates(candidatesData || []);
     } catch (err) {
-      setError(err.message || 'Failed to load job details and rankings.');
+      setError(err.message || 'Failed to load job specifications and rankings.');
     } finally {
       setLoading(false);
     }
@@ -136,21 +138,21 @@ const JobDetailPage = () => {
   );
 
   return (
-    <div className="space-y-8">
-      {/* Back button & quick actions */}
+    <div className="space-y-8 animate-fadeIn">
+      {/* Back button & quick contextual actions */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <Link
           to="/recruiter/jobs"
           className="inline-flex items-center space-x-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Back to Jobs</span>
+          <span>Back to Job Openings</span>
         </Link>
 
-        <div className="flex items-center space-x-2.5">
+        <div className="flex flex-wrap items-center gap-2.5">
           <Link
             to={`/recruiter/copilot?jobId=${job.id}`}
-            className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 transition-all"
+            className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#121A2B] hover:bg-[#172238] text-purple-300 border border-purple-500/30 transition-all shadow-sm"
           >
             <BotMessageSquare className="w-3.5 h-3.5 text-purple-400" />
             <span>Ask Copilot about this Job</span>
@@ -158,9 +160,9 @@ const JobDetailPage = () => {
 
           <Link
             to={`/recruiter/interview?jobId=${job.id}`}
-            className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
+            className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#121A2B] hover:bg-[#172238] text-slate-200 border border-white/[0.08] transition-all shadow-sm"
           >
-            <FileQuestion className="w-3.5 h-3.5 text-indigo-400" />
+            <FileQuestion className="w-3.5 h-3.5 text-sky-400" />
             <span>Generate Interview Questions</span>
           </Link>
         </div>
@@ -168,34 +170,34 @@ const JobDetailPage = () => {
 
       <ErrorAlert message={error} onRetry={loadData} />
 
-      {/* Job Details Card */}
-      <div className="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800 space-y-6">
+      {/* Job Details Hero Card */}
+      <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/[0.08] bg-[#121A2B] space-y-6">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
           <div>
-            <div className="flex items-center space-x-2 text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">
+            <div className="flex items-center space-x-2 text-xs font-bold text-purple-400 uppercase tracking-wider mb-1">
               <Briefcase className="w-4 h-4" />
-              <span>Job Opportunity #{job.id}</span>
+              <span>Position Details • Job #{job.id}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white">{job.title}</h1>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white">{job.title}</h1>
             <div className="mt-2.5 flex flex-wrap items-center gap-4 text-xs text-slate-300">
               <div className="flex items-center space-x-1.5">
-                <MapPin className="w-4 h-4 text-indigo-400" />
+                <MapPin className="w-4 h-4 text-purple-400" />
                 <span>{job.location || 'Remote'}</span>
               </div>
               <div className="flex items-center space-x-1.5">
-                <Clock className="w-4 h-4 text-purple-400" />
+                <Clock className="w-4 h-4 text-sky-400" />
                 <span>{job.experience || 'Not specified'}</span>
               </div>
-              <div className="flex items-center space-x-1.5 text-emerald-400 font-medium">
+              <div className="flex items-center space-x-1.5 text-emerald-400 font-semibold">
                 <Users className="w-4 h-4" />
-                <span>{rankedMatches.length} candidates analyzed</span>
+                <span>{rankedMatches.length} candidates evaluated</span>
               </div>
             </div>
           </div>
 
           <button
             onClick={() => setIsAnalyzeModalOpen(true)}
-            className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/25 transition-all self-start"
+            className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/25 transition-all self-start cursor-pointer"
           >
             <Sparkles className="w-4 h-4" />
             <span>Analyze New Candidate</span>
@@ -203,25 +205,25 @@ const JobDetailPage = () => {
         </div>
 
         {/* Description */}
-        <div className="pt-4 border-t border-slate-800/80">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+        <div className="pt-4 border-t border-white/[0.06]">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
             Job Description & Scope
           </h3>
-          <p className="text-sm text-slate-300 leading-relaxed whitespace-pre-line">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-line">
             {job.description}
           </p>
         </div>
 
         {/* Required Skills */}
-        <div className="pt-4 border-t border-slate-800/80">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2.5">
+        <div className="pt-4 border-t border-white/[0.06]">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">
             Target Requirements & Required Skills
           </h3>
           <div className="flex flex-wrap gap-2">
             {job.requiredSkills?.split(',').map((skill, idx) => (
               <span
                 key={idx}
-                className="text-xs font-semibold bg-indigo-500/10 text-indigo-300 px-3 py-1 rounded-lg border border-indigo-500/20"
+                className="text-xs font-semibold bg-purple-500/15 text-purple-300 px-3 py-1 rounded-xl border border-purple-500/30"
               >
                 {skill.trim()}
               </span>
@@ -234,12 +236,12 @@ const JobDetailPage = () => {
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h2 className="text-xl font-bold text-white tracking-tight flex items-center space-x-2">
-              <Sparkles className="w-5 h-5 text-indigo-400" />
+            <h2 className="text-xl font-extrabold text-white tracking-tight flex items-center space-x-2">
+              <Award className="w-5 h-5 text-purple-400" />
               <span>AI Candidate Rankings</span>
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              Ranked from highest match score to lowest.
+              Ranked from highest match score to lowest based on Gemini evaluation.
             </p>
           </div>
 
@@ -249,10 +251,10 @@ const JobDetailPage = () => {
               <button
                 key={f}
                 onClick={() => setScoreFilter(f)}
-                className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-xl font-semibold transition-all cursor-pointer ${
                   scoreFilter === f
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+                    ? 'bg-purple-600 text-white shadow-sm'
+                    : 'bg-[#121A2B] text-slate-400 hover:text-white border border-white/[0.08]'
                 }`}
               >
                 {f === 'ALL' ? 'All Matches' : f}
@@ -267,7 +269,7 @@ const JobDetailPage = () => {
           placeholder="Search ranked candidates by name or email..."
         />
 
-        {/* Rankings Table / Cards */}
+        {/* Rankings Table */}
         {filteredMatches.length === 0 ? (
           <EmptyState
             icon={Users}
@@ -275,38 +277,38 @@ const JobDetailPage = () => {
             description={
               searchQuery
                 ? 'Try adjusting your search query or score filter.'
-                : 'Select a candidate with an uploaded resume to run the Gemini match analysis.'
+                : 'Select an available candidate with an uploaded resume to run the Gemini match analysis.'
             }
             actionText={unanalyzedCandidates.length > 0 ? 'Analyze a Candidate Now' : undefined}
             onAction={unanalyzedCandidates.length > 0 ? () => setIsAnalyzeModalOpen(true) : undefined}
           />
         ) : (
-          <div className="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+          <div className="glass-card rounded-2xl border border-white/[0.08] bg-[#121A2B] overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-slate-950/60 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  <tr className="border-b border-white/[0.08] bg-[#0D1222]/80 text-[11px] font-bold uppercase tracking-wider text-slate-400">
                     <th className="py-3.5 px-4 sm:px-6">Candidate</th>
                     <th className="py-3.5 px-4 sm:px-6">Status</th>
                     <th className="py-3.5 px-4 sm:px-6">Match Score</th>
                     <th className="py-3.5 px-4 sm:px-6">Matching Skills</th>
                     <th className="py-3.5 px-4 sm:px-6">Missing Skills</th>
-                    <th className="py-3.5 px-4 sm:px-6 text-right">Actions</th>
+                    <th className="py-3.5 px-4 sm:px-6 text-right">Recruiter Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-xs">
+                <tbody className="divide-y divide-white/[0.05] text-xs">
                   {filteredMatches.map((match, index) => (
                     <tr
                       key={match.id}
-                      className="hover:bg-slate-800/30 transition-colors group"
+                      className="hover:bg-white/[0.02] transition-colors group"
                     >
                       <td className="py-4 px-4 sm:px-6">
                         <div className="flex items-center space-x-3">
-                          <span className="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-[11px] text-slate-300">
+                          <span className="w-6 h-6 rounded-lg bg-[#172238] border border-white/[0.08] flex items-center justify-center font-bold text-[11px] text-purple-300">
                             #{index + 1}
                           </span>
                           <div>
-                            <div className="font-semibold text-slate-100 text-sm group-hover:text-indigo-300 transition-colors">
+                            <div className="font-semibold text-white text-sm group-hover:text-purple-300 transition-colors">
                               {match.candidate?.name || 'Unnamed Candidate'}
                             </div>
                             <div className="text-[11px] text-slate-400">
@@ -318,17 +320,18 @@ const JobDetailPage = () => {
 
                       <td className="py-4 px-4 sm:px-6 whitespace-nowrap">
                         {match.validationStatus === 'VALIDATED' ? (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/30">
+                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-emerald-950/70 text-emerald-300 border border-emerald-500/30">
                             <CheckCircle2 className="w-3 h-3 text-emerald-400" />
                             <span>Validated</span>
                           </span>
                         ) : match.validationStatus === 'SHORTLISTED' ? (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-purple-950 text-purple-300 border border-purple-500/30">
+                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-purple-950/70 text-purple-300 border border-purple-500/30">
                             <Sparkles className="w-3 h-3 text-purple-400" />
                             <span>Shortlisted</span>
                           </span>
                         ) : match.validationStatus === 'REJECTED' ? (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-red-950 text-red-300 border border-red-500/30">
+                          <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-rose-950/70 text-rose-300 border border-rose-500/30">
+                            <X className="w-3 h-3 text-rose-400" />
                             <span>Rejected</span>
                           </span>
                         ) : (
@@ -359,8 +362,8 @@ const JobDetailPage = () => {
                         <button
                           type="button"
                           onClick={() => handleStatusChange(match, 'SHORTLISTED')}
-                          title="Shortlist / Select Candidate"
-                          className={`inline-flex items-center space-x-1 px-2 py-1 rounded-lg text-[11px] font-semibold transition-colors ${
+                          title="Shortlist Candidate"
+                          className={`inline-flex items-center space-x-1 px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all cursor-pointer ${
                             match.validationStatus === 'SHORTLISTED'
                               ? 'bg-purple-600 text-white'
                               : 'bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30'
@@ -374,10 +377,10 @@ const JobDetailPage = () => {
                           type="button"
                           onClick={() => handleStatusChange(match, 'REJECTED')}
                           title="Reject Candidate"
-                          className={`inline-flex items-center space-x-1 px-2 py-1 rounded-lg text-[11px] font-semibold transition-colors ${
+                          className={`inline-flex items-center space-x-1 px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all cursor-pointer ${
                             match.validationStatus === 'REJECTED'
-                              ? 'bg-red-600 text-white'
-                              : 'bg-red-600/20 hover:bg-red-600/30 text-red-300 border border-red-500/30'
+                              ? 'bg-rose-600 text-white'
+                              : 'bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/30'
                           }`}
                         >
                           <span>Reject</span>
@@ -387,7 +390,7 @@ const JobDetailPage = () => {
                           type="button"
                           onClick={() => handleStatusChange(match, 'VALIDATED')}
                           title="Validate Candidate"
-                          className={`inline-flex items-center space-x-1 px-2 py-1 rounded-lg text-[11px] font-semibold transition-colors ${
+                          className={`inline-flex items-center space-x-1 px-2.5 py-1 rounded-xl text-[11px] font-semibold transition-all cursor-pointer ${
                             match.validationStatus === 'VALIDATED'
                               ? 'bg-emerald-600 text-white'
                               : 'bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30'
@@ -399,7 +402,7 @@ const JobDetailPage = () => {
 
                         <Link
                           to={`/recruiter/candidates/${match.candidate?.id}?jobId=${job.id}`}
-                          className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 transition-colors"
+                          className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-xl text-[11px] font-semibold bg-white/[0.06] hover:bg-white/[0.12] text-slate-200 transition-colors"
                         >
                           <span>Analysis</span>
                           <ChevronRight className="w-3 h-3" />
@@ -425,7 +428,7 @@ const JobDetailPage = () => {
         {unanalyzedCandidates.length === 0 ? (
           <div className="text-center py-6">
             <AlertCircle className="w-10 h-10 text-amber-400 mx-auto mb-2" />
-            <p className="text-sm font-semibold text-slate-200">No unanalyzed candidates available</p>
+            <p className="text-sm font-semibold text-white">No unanalyzed candidates available</p>
             <p className="text-xs text-slate-400 mt-1 max-w-sm mx-auto">
               All candidates with uploaded resumes have already been evaluated for this position.
             </p>
@@ -442,8 +445,8 @@ const JobDetailPage = () => {
                   key={cand.id}
                   className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
                     selectedCandidateToAnalyze === String(cand.id)
-                      ? 'border-indigo-500 bg-indigo-600/10 text-indigo-200'
-                      : 'border-slate-800 bg-slate-900/60 text-slate-300 hover:border-slate-700'
+                      ? 'border-purple-500 bg-purple-600/10 text-purple-200'
+                      : 'border-white/[0.08] bg-[#080B16] text-slate-300 hover:border-white/[0.16]'
                   }`}
                 >
                   <div className="flex items-center space-x-3">
@@ -453,10 +456,10 @@ const JobDetailPage = () => {
                       value={cand.id}
                       checked={selectedCandidateToAnalyze === String(cand.id)}
                       onChange={(e) => setSelectedCandidateToAnalyze(e.target.value)}
-                      className="text-indigo-600 focus:ring-indigo-500"
+                      className="text-purple-600 focus:ring-purple-500"
                     />
                     <div>
-                      <div className="font-semibold text-sm text-slate-100">
+                      <div className="font-semibold text-sm text-white">
                         {cand.name || cand.email?.split('@')[0]}
                       </div>
                       <div className="text-xs text-slate-400">{cand.email}</div>
@@ -469,11 +472,11 @@ const JobDetailPage = () => {
               ))}
             </div>
 
-            <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-800">
+            <div className="flex items-center justify-end space-x-3 pt-4 border-t border-white/[0.08]">
               <button
                 type="button"
                 onClick={() => setIsAnalyzeModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors"
               >
                 Cancel
               </button>
@@ -481,7 +484,7 @@ const JobDetailPage = () => {
                 type="button"
                 disabled={!selectedCandidateToAnalyze || isAnalyzing}
                 onClick={() => handleAnalyzeCandidate(selectedCandidateToAnalyze)}
-                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50"
+                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/20 disabled:opacity-50 cursor-pointer"
               >
                 {isAnalyzing ? (
                   <>

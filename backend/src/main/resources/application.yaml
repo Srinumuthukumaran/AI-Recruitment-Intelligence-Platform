@@ -3,10 +3,9 @@ spring:
     name: talentiq-backend
 
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USER}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATABASE_URL:jdbc:h2:file:./data/talentiq;DB_CLOSE_DELAY=-1;MODE=MySQL;NON_KEYWORDS=USER}
+    username: ${DATABASE_USER:sa}
+    password: ${DATABASE_PASSWORD:}
 
   jpa:
     hibernate:

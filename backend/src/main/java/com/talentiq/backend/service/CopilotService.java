@@ -6,6 +6,8 @@ import com.talentiq.backend.entity.Match;
 import com.talentiq.backend.repository.CandidateRepository;
 import com.talentiq.backend.repository.JobRepository;
 import com.talentiq.backend.repository.MatchRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -16,6 +18,8 @@ import java.util.Optional;
 
 @Service
 public class CopilotService {
+
+    private static final Logger log = LoggerFactory.getLogger(CopilotService.class);
 
     private final AiService aiService;
     private final JobRepository jobRepository;
@@ -39,9 +43,11 @@ public class CopilotService {
 
         StringBuilder context = new StringBuilder();
 
+        boolean specificJobFound = false;
         if (jobId != null) {
             Optional<Job> jobOpt = jobRepository.findById(jobId);
             if (jobOpt.isPresent()) {
+                specificJobFound = true;
                 Job job = jobOpt.get();
                 context.append("TARGET JOB:\n")
                         .append("Title: ").append(job.getTitle()).append("\n")
@@ -63,7 +69,9 @@ public class CopilotService {
                             .append("\n");
                 }
             }
-        } else {
+        }
+        
+        if (!specificJobFound) {
             List<Job> allJobs = jobRepository.findAll();
             context.append("ACTIVE JOBS IN SYSTEM (").append(allJobs.size()).append(" jobs):\n");
             for (Job j : allJobs) {
@@ -108,6 +116,7 @@ public class CopilotService {
         try {
             answer = aiService.askCopilot(prompt);
         } catch (Exception e) {
+            log.warn("AI Copilot service call failed, generating contextual summary fallback: {}", e.getMessage());
             StringBuilder fallback = new StringBuilder();
             fallback.append("### TalentIQ Recruiter Copilot Assistant (Contextual Summary)\n\n");
             fallback.append("Based on the current candidate directory and job listings in TalentIQ:\n\n");

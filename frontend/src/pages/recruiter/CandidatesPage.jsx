@@ -517,7 +517,7 @@ const CandidatesPage = () => {
               setAddError(null);
               setIsAddModalOpen(true);
             }}
-            className="inline-flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
+            className="inline-flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-[#121A2B] hover:bg-[#172238] text-slate-200 border border-white/[0.08] transition-all"
           >
             <Zap className="w-3.5 h-3.5 text-amber-400" />
             <span>Load Sample Profiles</span>
@@ -530,7 +530,7 @@ const CandidatesPage = () => {
               setAddError(null);
               setIsAddModalOpen(true);
             }}
-            className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/20 transition-all"
+            className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/25 transition-all"
           >
             <UserPlus className="w-3.5 h-3.5" />
             <span>Add Candidate</span>
@@ -572,7 +572,7 @@ const CandidatesPage = () => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 focus:outline-none focus:border-indigo-500 font-medium"
+            className="px-3 py-2 rounded-xl bg-[#121A2B] border border-white/[0.08] text-slate-300 focus:outline-none focus:border-purple-500 font-medium"
           >
             <option value="ALL">All Application Statuses</option>
             <option value="SUBMITTED">Submitted • Awaiting Validation</option>
@@ -585,7 +585,7 @@ const CandidatesPage = () => {
           <select
             value={selectedJobFilter}
             onChange={(e) => setSelectedJobFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 focus:outline-none focus:border-indigo-500"
+            className="px-3 py-2 rounded-xl bg-[#121A2B] border border-white/[0.08] text-slate-300 focus:outline-none focus:border-purple-500"
           >
             <option value="ALL">All Matched Jobs</option>
             {jobs.map((j) => (
@@ -599,7 +599,7 @@ const CandidatesPage = () => {
           <select
             value={resumeFilter}
             onChange={(e) => setResumeFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 focus:outline-none focus:border-indigo-500"
+            className="px-3 py-2 rounded-xl bg-[#121A2B] border border-white/[0.08] text-slate-300 focus:outline-none focus:border-purple-500"
           >
             <option value="ALL">All Resumes</option>
             <option value="WITH_RESUME">Resume Uploaded</option>
@@ -642,12 +642,12 @@ const CandidatesPage = () => {
           {filteredCandidates.map((cand) => (
             <div
               key={cand.id}
-              className="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col justify-between hover:border-indigo-500/40 transition-all group"
+              className="glass-card rounded-2xl p-5 border border-white/[0.08] bg-[#121A2B] flex flex-col justify-between hover:border-purple-500/40 transition-all group shadow-xl shadow-purple-950/10"
             >
               <div>
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-base font-bold text-white group-hover:text-indigo-300 transition-colors">
+                    <h3 className="text-base font-bold text-white group-hover:text-purple-300 transition-colors">
                       {cand.name || cand.email?.split('@')[0]}
                     </h3>
                     <div className="flex items-center space-x-1.5 text-xs text-slate-400 mt-1">
@@ -678,7 +678,7 @@ const CandidatesPage = () => {
                           <span>Submitted • Needs Validation</span>
                         </span>
                       ) : (
-                        <span className="text-[10px] font-medium text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] font-medium text-slate-500 bg-white/[0.06] px-2 py-0.5 rounded-md">
                           Draft Profile
                         </span>
                       )}
@@ -694,11 +694,11 @@ const CandidatesPage = () => {
                   {cand.bestMatch ? (
                     <MatchScoreBadge score={cand.bestMatch.matchScore} size="sm" />
                   ) : cand.resumeText ? (
-                    <span className="text-[10px] font-semibold text-indigo-400 bg-indigo-950/60 px-2 py-0.5 rounded-md border border-indigo-500/30">
+                    <span className="text-[10px] font-semibold text-purple-400 bg-purple-950/60 px-2 py-0.5 rounded-md border border-purple-500/30">
                       Ready
                     </span>
                   ) : (
-                    <span className="text-[10px] font-medium text-slate-500 bg-slate-800 px-2 py-0.5 rounded-md">
+                    <span className="text-[10px] font-medium text-slate-500 bg-white/[0.06] px-2 py-0.5 rounded-md">
                       No Resume
                     </span>
                   )}
@@ -706,7 +706,7 @@ const CandidatesPage = () => {
 
                 {/* Best Match details if available */}
                 {cand.bestMatch ? (
-                  <div className="mt-4 p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 space-y-2">
+                  <div className="mt-4 p-3 rounded-xl bg-[#172238]/60 border border-white/[0.06] space-y-2">
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-slate-400">Best Match:</span>
                       <span className="font-semibold text-slate-200 truncate max-w-[150px]">
@@ -728,7 +728,7 @@ const CandidatesPage = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="mt-4 p-3 rounded-xl bg-slate-950/40 border border-slate-800/50 text-xs text-slate-400">
+                  <div className="mt-4 p-3 rounded-xl bg-[#172238]/40 border border-white/[0.06] text-xs text-slate-400">
                     {cand.resumeText ? (
                       <span>Resume extracted. Ready to evaluate against open positions.</span>
                     ) : (
@@ -738,17 +738,17 @@ const CandidatesPage = () => {
                 )}
 
                 {cand.validationNotes && (
-                  <div className="mt-2.5 p-2.5 rounded-lg bg-indigo-950/20 border border-indigo-500/20 text-[11px] text-slate-300 line-clamp-1">
-                    <strong className="text-indigo-400">Recruiter Note:</strong> {cand.validationNotes}
+                  <div className="mt-2.5 p-2.5 rounded-lg bg-purple-950/20 border border-purple-500/20 text-[11px] text-slate-300 line-clamp-1">
+                    <strong className="text-purple-400">Recruiter Note:</strong> {cand.validationNotes}
                   </div>
                 )}
               </div>
 
               {/* Actions */}
-              <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <div className="mt-5 pt-3 border-t border-white/[0.08] flex items-center justify-between gap-2">
                 <Link
                   to={`/recruiter/candidates/${cand.id}`}
-                  className="inline-flex items-center space-x-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors"
+                  className="inline-flex items-center space-x-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300 transition-colors"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>Profile & Analysis</span>
@@ -765,7 +765,7 @@ const CandidatesPage = () => {
                         ? 'bg-red-600/20 hover:bg-red-600/30 text-red-300 border-red-500/30'
                         : cand.submissionStatus === 'VALIDATED'
                         ? 'bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border-emerald-500/30'
-                        : 'bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border-indigo-500/30'
+                        : 'bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border-purple-500/30'
                     }`}
                   >
                     {cand.submissionStatus === 'SHORTLISTED' ? (
@@ -789,7 +789,7 @@ const CandidatesPage = () => {
                   <button
                     onClick={() => openEditModal(cand)}
                     title="Edit Candidate"
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-300 hover:bg-slate-800 transition-colors"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-purple-300 hover:bg-white/[0.06] transition-colors"
                   >
                     <Pencil className="w-3.5 h-3.5" />
                   </button>
@@ -797,7 +797,7 @@ const CandidatesPage = () => {
                   <button
                     onClick={() => openDeleteModal(cand)}
                     title="Remove Candidate"
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-950/40 transition-colors"
+                    className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-950/30 transition-colors"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -805,9 +805,9 @@ const CandidatesPage = () => {
                   {cand.resumeText && jobs.length > 0 && (
                     <button
                       onClick={() => openAnalyzeModal(cand)}
-                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 transition-colors"
+                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 transition-colors"
                     >
-                      <Sparkles className="w-3 h-3 text-indigo-400" />
+                      <Sparkles className="w-3 h-3 text-purple-400" />
                       <span>Analyze</span>
                     </button>
                   )}
@@ -838,7 +838,7 @@ const CandidatesPage = () => {
             <select
               value={selectedJobId}
               onChange={(e) => setSelectedJobId(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2.5 bg-[#172238] border border-white/[0.1] rounded-xl text-sm text-slate-100 focus:outline-none focus:border-purple-500"
             >
               {jobs.map((j) => (
                 <option key={j.id} value={j.id}>
@@ -848,11 +848,11 @@ const CandidatesPage = () => {
             </select>
           </div>
 
-          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-white/[0.08]">
             <button
               type="button"
               onClick={() => setIsAnalyzeModalOpen(false)}
-              className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+              className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
             >
               Cancel
             </button>
@@ -860,7 +860,7 @@ const CandidatesPage = () => {
               type="button"
               disabled={!selectedJobId || isAnalyzing}
               onClick={handleRunAnalysis}
-              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50"
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25 disabled:opacity-50"
             >
               {isAnalyzing ? (
                 <>
@@ -903,7 +903,7 @@ const CandidatesPage = () => {
                 className={`py-2 px-3 rounded-xl text-xs font-semibold border flex items-center justify-center space-x-1 transition-all ${
                   validationForm.status === 'VALIDATED'
                     ? 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-600/20'
-                    : 'bg-slate-950 text-slate-300 border-slate-700 hover:bg-slate-900'
+                    : 'bg-[#172238] text-slate-300 border-white/[0.1] hover:bg-[#1f2d4a]'
                 }`}
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
@@ -916,7 +916,7 @@ const CandidatesPage = () => {
                 className={`py-2 px-3 rounded-xl text-xs font-semibold border flex items-center justify-center space-x-1 transition-all ${
                   validationForm.status === 'SHORTLISTED'
                     ? 'bg-purple-600 text-white border-purple-500 shadow-md shadow-purple-600/20'
-                    : 'bg-slate-950 text-slate-300 border-slate-700 hover:bg-slate-900'
+                    : 'bg-[#172238] text-slate-300 border-white/[0.1] hover:bg-[#1f2d4a]'
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5" />
@@ -929,7 +929,7 @@ const CandidatesPage = () => {
                 className={`py-2 px-3 rounded-xl text-xs font-semibold border flex items-center justify-center space-x-1 transition-all ${
                   validationForm.status === 'REJECTED'
                     ? 'bg-red-600 text-white border-red-500 shadow-md shadow-red-600/20'
-                    : 'bg-slate-950 text-slate-300 border-slate-700 hover:bg-slate-900'
+                    : 'bg-[#172238] text-slate-300 border-white/[0.1] hover:bg-[#1f2d4a]'
                 }`}
               >
                 <X className="w-3.5 h-3.5" />
@@ -947,22 +947,22 @@ const CandidatesPage = () => {
               value={validationForm.notes}
               onChange={(e) => setValidationForm({ ...validationForm, notes: e.target.value })}
               placeholder="e.g. Verified resume credentials. Meets Java & Spring Boot requirements. Approved for interview."
-              className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2 bg-[#172238] border border-white/[0.1] rounded-xl text-xs text-slate-200 focus:outline-none focus:border-purple-500"
             />
           </div>
 
-          <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-800">
+          <div className="flex items-center justify-end space-x-3 pt-3 border-t border-white/[0.08]">
             <button
               type="button"
               onClick={() => setIsValidateModalOpen(false)}
-              className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+              className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isValidating}
-              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50"
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25 disabled:opacity-50"
             >
               {isValidating ? (
                 <>
@@ -1000,7 +1000,7 @@ const CandidatesPage = () => {
               value={editFormData.name}
               onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
               placeholder="e.g. Alex Mercer"
-              className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2.5 bg-[#172238] border border-white/[0.1] rounded-xl text-sm text-slate-100 focus:outline-none focus:border-purple-500"
             />
           </div>
 
@@ -1014,7 +1014,7 @@ const CandidatesPage = () => {
               value={editFormData.email}
               onChange={(e) => setEditFormData({ ...editFormData, email: e.target.value })}
               placeholder="e.g. candidate@example.com"
-              className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2.5 bg-[#172238] border border-white/[0.1] rounded-xl text-sm text-slate-100 focus:outline-none focus:border-purple-500"
             />
           </div>
 
@@ -1027,25 +1027,25 @@ const CandidatesPage = () => {
               value={editFormData.resumeText}
               onChange={(e) => setEditFormData({ ...editFormData, resumeText: e.target.value })}
               placeholder="Paste or edit candidate's resume content, technical skills, or project background..."
-              className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs font-mono text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed"
+              className="w-full px-3.5 py-2.5 bg-[#172238] border border-white/[0.1] rounded-xl text-xs font-mono text-slate-200 focus:outline-none focus:border-purple-500 leading-relaxed"
             />
             <p className="text-[11px] text-slate-500 mt-1">
               Modifying resume text will update the qualifications used by Google Gemini for future AI evaluations.
             </p>
           </div>
 
-          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-white/[0.08]">
             <button
               type="button"
               onClick={() => setIsEditModalOpen(false)}
-              className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+              className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSaving}
-              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50"
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25 disabled:opacity-50"
             >
               {isSaving ? (
                 <>
@@ -1084,11 +1084,11 @@ const CandidatesPage = () => {
             This will permanently remove the candidate's profile, resume credentials, and any AI matching scores. This action cannot be undone.
           </p>
 
-          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-white/[0.08]">
             <button
               type="button"
               onClick={() => setIsDeleteModalOpen(false)}
-              className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+              className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
             >
               Cancel
             </button>
@@ -1124,7 +1124,7 @@ const CandidatesPage = () => {
         <ErrorAlert message={addError} />
 
         {/* Tab switcher */}
-        <div className="flex items-center border-b border-slate-800 mb-5 gap-1 overflow-x-auto text-xs font-semibold">
+        <div className="flex items-center border-b border-white/[0.08] mb-5 gap-1 overflow-x-auto text-xs font-semibold">
           <button
             type="button"
             onClick={() => {
@@ -1133,8 +1133,8 @@ const CandidatesPage = () => {
             }}
             className={`flex items-center space-x-1.5 py-2.5 px-3 border-b-2 transition-colors whitespace-nowrap ${
               addTab === 'upload'
-                ? 'border-indigo-500 text-indigo-400'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-purple-500 text-purple-400'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
             <FileUp className="w-3.5 h-3.5" />
@@ -1149,8 +1149,8 @@ const CandidatesPage = () => {
             }}
             className={`flex items-center space-x-1.5 py-2.5 px-3 border-b-2 transition-colors whitespace-nowrap ${
               addTab === 'manual'
-                ? 'border-indigo-500 text-indigo-400'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-purple-500 text-purple-400'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
@@ -1165,8 +1165,8 @@ const CandidatesPage = () => {
             }}
             className={`flex items-center space-x-1.5 py-2.5 px-3 border-b-2 transition-colors whitespace-nowrap ${
               addTab === 'bulk'
-                ? 'border-indigo-500 text-indigo-400'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-purple-500 text-purple-400'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
             <Files className="w-3.5 h-3.5" />
@@ -1182,7 +1182,7 @@ const CandidatesPage = () => {
             className={`flex items-center space-x-1.5 py-2.5 px-3 border-b-2 transition-colors whitespace-nowrap ${
               addTab === 'presets'
                 ? 'border-amber-500 text-amber-400'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
             <Zap className="w-3.5 h-3.5" />
@@ -1207,7 +1207,7 @@ const CandidatesPage = () => {
                   value={singleName}
                   onChange={(e) => setSingleName(e.target.value)}
                   placeholder="Auto-extracted if blank"
-                  className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3.5 py-2 bg-[#172238] border border-white/[0.1] rounded-xl text-xs text-slate-100 focus:outline-none focus:border-purple-500"
                 />
               </div>
 
@@ -1220,13 +1220,13 @@ const CandidatesPage = () => {
                   value={singleEmail}
                   onChange={(e) => setSingleEmail(e.target.value)}
                   placeholder="Auto-extracted if blank"
-                  className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3.5 py-2 bg-[#172238] border border-white/[0.1] rounded-xl text-xs text-slate-100 focus:outline-none focus:border-purple-500"
                 />
               </div>
             </div>
 
             {/* File Dropzone */}
-            <div className="relative border-2 border-dashed border-slate-700 hover:border-indigo-500 rounded-2xl p-6 text-center transition-colors bg-slate-950/50">
+            <div className="relative border-2 border-dashed border-white/[0.12] hover:border-purple-500 rounded-2xl p-6 text-center transition-colors bg-[#172238]/40">
               <input
                 type="file"
                 accept=".pdf,application/pdf"
@@ -1235,7 +1235,7 @@ const CandidatesPage = () => {
                 className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
               />
               <div className="flex flex-col items-center space-y-2">
-                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
                   <UploadCloud className="w-5 h-5" />
                 </div>
                 {singleFile ? (
@@ -1251,7 +1251,7 @@ const CandidatesPage = () => {
                 ) : (
                   <div className="space-y-1">
                     <p className="text-xs font-medium text-slate-300">
-                      Drop candidate PDF resume here or <span className="text-indigo-400 font-semibold underline">browse</span>
+                      Drop candidate PDF resume here or <span className="text-purple-400 font-semibold underline">browse</span>
                     </p>
                     <p className="text-[11px] text-slate-500">Supports .pdf files up to 10MB</p>
                   </div>
@@ -1259,18 +1259,18 @@ const CandidatesPage = () => {
               </div>
             </div>
 
-            <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-800">
+            <div className="flex items-center justify-end space-x-3 pt-3 border-t border-white/[0.08]">
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={!singleFile || isAdding}
-                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50"
+                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25 disabled:opacity-50"
               >
                 {isAdding ? (
                   <>
@@ -1304,7 +1304,7 @@ const CandidatesPage = () => {
                     resumeText: `Rohan Gupta\nEmail: rohan.gupta@talentpool.io\n\nFull Stack Java & React Developer with 3 years of experience building web applications using Spring Boot, React, MySQL, and Docker. Experience with REST APIs, Git, and automated testing.`,
                   })
                 }
-                className="text-[11px] font-semibold text-indigo-400 hover:text-indigo-300"
+                className="text-[11px] font-semibold text-purple-400 hover:text-purple-300"
               >
                 + Fill Sample Template
               </button>
@@ -1321,7 +1321,7 @@ const CandidatesPage = () => {
                   value={manualForm.name}
                   onChange={(e) => setManualForm({ ...manualForm, name: e.target.value })}
                   placeholder="e.g. Maya Patel"
-                  className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3.5 py-2 bg-[#172238] border border-white/[0.1] rounded-xl text-xs text-slate-100 focus:outline-none focus:border-purple-500"
                 />
               </div>
 
@@ -1335,7 +1335,7 @@ const CandidatesPage = () => {
                   value={manualForm.email}
                   onChange={(e) => setManualForm({ ...manualForm, email: e.target.value })}
                   placeholder="e.g. maya.patel@example.com"
-                  className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3.5 py-2 bg-[#172238] border border-white/[0.1] rounded-xl text-xs text-slate-100 focus:outline-none focus:border-purple-500"
                 />
               </div>
             </div>
@@ -1350,22 +1350,22 @@ const CandidatesPage = () => {
                 value={manualForm.resumeText}
                 onChange={(e) => setManualForm({ ...manualForm, resumeText: e.target.value })}
                 placeholder="Paste candidate technical skills, years of experience, projects, education, and tools..."
-                className="w-full px-3.5 py-2 bg-slate-950 border border-slate-700 rounded-xl text-xs font-mono text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed"
+                className="w-full px-3.5 py-2 bg-[#172238] border border-white/[0.1] rounded-xl text-xs font-mono text-slate-200 focus:outline-none focus:border-purple-500 leading-relaxed"
               />
             </div>
 
-            <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-800">
+            <div className="flex items-center justify-end space-x-3 pt-3 border-t border-white/[0.08]">
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isAdding}
-                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50"
+                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25 disabled:opacity-50"
               >
                 {isAdding ? (
                   <>
@@ -1391,7 +1391,7 @@ const CandidatesPage = () => {
             </p>
 
             {/* Multiple files dropzone */}
-            <div className="relative border-2 border-dashed border-slate-700 hover:border-indigo-500 rounded-2xl p-6 text-center transition-colors bg-slate-950/50">
+            <div className="relative border-2 border-dashed border-white/[0.12] hover:border-purple-500 rounded-2xl p-6 text-center transition-colors bg-[#172238]/40">
               <input
                 type="file"
                 multiple
@@ -1409,7 +1409,7 @@ const CandidatesPage = () => {
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs font-medium text-slate-300">
-                    Drop multiple PDF resumes here or <span className="text-indigo-400 font-semibold underline">browse files</span>
+                    Drop multiple PDF resumes here or <span className="text-purple-400 font-semibold underline">browse files</span>
                   </p>
                   <p className="text-[11px] text-slate-500">Hold Ctrl or Shift to select multiple PDF files</p>
                 </div>
@@ -1433,10 +1433,10 @@ const CandidatesPage = () => {
                   {bulkFiles.map((file, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center justify-between p-2 rounded-xl bg-slate-950 border border-slate-800 text-xs"
+                      className="flex items-center justify-between p-2 rounded-xl bg-[#172238] border border-white/[0.06] text-xs"
                     >
                       <div className="flex items-center space-x-2 truncate">
-                        <FileText className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" />
+                        <FileText className="w-3.5 h-3.5 text-purple-400 flex-shrink-0" />
                         <span className="text-slate-200 truncate">{file.name}</span>
                         <span className="text-[10px] text-slate-500">
                           ({(file.size / 1024).toFixed(1)} KB)
@@ -1455,18 +1455,18 @@ const CandidatesPage = () => {
               </div>
             )}
 
-            <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-800">
+            <div className="flex items-center justify-end space-x-3 pt-3 border-t border-white/[0.08]">
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={bulkFiles.length === 0 || isAdding}
-                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20 disabled:opacity-50"
+                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25 disabled:opacity-50"
               >
                 {isAdding ? (
                   <>
@@ -1500,7 +1500,7 @@ const CandidatesPage = () => {
                     setSelectedPresets(PRESET_CANDIDATES.map((p) => p.id));
                   }
                 }}
-                className="text-[11px] font-semibold text-indigo-400 hover:text-indigo-300"
+                className="text-[11px] font-semibold text-purple-400 hover:text-purple-300"
               >
                 {selectedPresets.length === PRESET_CANDIDATES.length ? 'Deselect All' : 'Select All'}
               </button>
@@ -1519,20 +1519,20 @@ const CandidatesPage = () => {
                     }}
                     className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-start space-x-3 ${
                       isSelected
-                        ? 'bg-indigo-950/30 border-indigo-500/50'
-                        : 'bg-slate-950 border-slate-800/80 hover:border-slate-700'
+                        ? 'bg-purple-950/30 border-purple-500/50'
+                        : 'bg-[#172238]/60 border-white/[0.06] hover:border-white/[0.15]'
                     }`}
                   >
                     <input
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => {}}
-                      className="mt-0.5 rounded border-slate-700 text-indigo-600 focus:ring-indigo-500"
+                      className="mt-0.5 rounded border-white/20 text-purple-600 focus:ring-purple-500"
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <h4 className="text-xs font-bold text-white truncate">{preset.name}</h4>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-800 text-indigo-300 border border-slate-700">
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-[#121A2B] text-purple-300 border border-white/[0.08]">
                           {preset.roleTag}
                         </span>
                       </div>
@@ -1546,11 +1546,11 @@ const CandidatesPage = () => {
               })}
             </div>
 
-            <div className="flex items-center justify-end space-x-3 pt-3 border-t border-slate-800">
+            <div className="flex items-center justify-end space-x-3 pt-3 border-t border-white/[0.08]">
               <button
                 type="button"
                 onClick={() => setIsAddModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
               >
                 Cancel
               </button>

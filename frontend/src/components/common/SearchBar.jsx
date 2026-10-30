@@ -12,7 +12,7 @@ const SearchBar = ({ value, onChange, placeholder = 'Search...', onClear }) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full pl-10 pr-10 py-2.5 bg-slate-900/60 border border-slate-700/80 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+        className="w-full pl-10 pr-10 py-2.5 bg-[#121A2B]/80 border border-white/[0.1] rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
       />
       {value && (
         <button

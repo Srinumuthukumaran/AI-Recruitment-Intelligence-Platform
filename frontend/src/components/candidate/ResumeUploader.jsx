@@ -79,7 +79,7 @@ const ResumeUploader = ({ onUploadSuccess, currentResumeText }) => {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm">
+    <div className="rounded-2xl border border-white/[0.08] bg-[#121A2B] p-6 backdrop-blur-sm shadow-xl shadow-purple-950/20">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-base font-semibold text-white">Upload Resume (PDF)</h3>
@@ -103,10 +103,10 @@ const ResumeUploader = ({ onUploadSuccess, currentResumeText }) => {
         onClick={() => fileInputRef.current?.click()}
         className={`relative cursor-pointer rounded-xl border-2 border-dashed p-8 text-center transition-all ${
           isDragging
-            ? 'border-indigo-500 bg-indigo-500/10'
+            ? 'border-purple-500 bg-purple-500/10'
             : file
             ? 'border-emerald-500/50 bg-emerald-950/10'
-            : 'border-slate-700/80 hover:border-indigo-500/50 hover:bg-slate-800/40'
+            : 'border-white/[0.12] hover:border-purple-500/50 hover:bg-[#172238]/50'
         }`}
       >
         <input
@@ -128,7 +128,7 @@ const ResumeUploader = ({ onUploadSuccess, currentResumeText }) => {
             </div>
           ) : (
             <>
-              <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-3">
+              <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-3">
                 <UploadCloud className="w-6 h-6" />
               </div>
               <p className="text-sm font-medium text-slate-200">
@@ -165,7 +165,7 @@ const ResumeUploader = ({ onUploadSuccess, currentResumeText }) => {
               if (fileInputRef.current) fileInputRef.current.value = '';
             }}
             disabled={isUploading}
-            className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+            className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-[#172238] transition-colors"
           >
             Clear Selection
           </button>
@@ -176,8 +176,8 @@ const ResumeUploader = ({ onUploadSuccess, currentResumeText }) => {
           disabled={!file || isUploading}
           className={`inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
             !file || isUploading
-              ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
-              : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/25'
+              ? 'bg-[#172238] text-slate-500 cursor-not-allowed'
+              : 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/25'
           }`}
         >
           {isUploading ? (

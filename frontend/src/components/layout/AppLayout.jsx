@@ -6,19 +6,30 @@ import ResponsibleAIBanner from '../common/ResponsibleAIBanner';
 
 const AppLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
   const closeSidebar = () => setIsSidebarOpen(false);
+  const toggleCollapse = () => setIsCollapsed((prev) => !prev);
 
   return (
-    <div className="min-h-screen bg-[#0a0d14] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#080B16] text-[#F8FAFC] flex flex-col font-sans">
       <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
       <div className="flex flex-1 w-full relative">
-        <Sidebar isOpen={isSidebarOpen} closeSidebar={closeSidebar} />
+        <Sidebar
+          isOpen={isSidebarOpen}
+          closeSidebar={closeSidebar}
+          isCollapsed={isCollapsed}
+          toggleCollapse={toggleCollapse}
+        />
 
-        {/* Main Content Area */}
-        <main className="flex-1 md:pl-64 flex flex-col min-w-0">
+        {/* Main Content Area with Dynamic Padding */}
+        <main
+          className={`flex-1 ${
+            isCollapsed ? 'md:pl-20' : 'md:pl-64'
+          } flex flex-col min-w-0 transition-all duration-300`}
+        >
           <div className="p-4 md:p-8 max-w-7xl w-full mx-auto flex-1 flex flex-col">
             <ResponsibleAIBanner />
             <Outlet />

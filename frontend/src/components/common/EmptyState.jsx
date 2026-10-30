@@ -9,16 +9,16 @@ const EmptyState = ({
   onAction,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-8 md:p-12 text-center rounded-2xl border border-slate-800/80 bg-slate-900/40 backdrop-blur-sm my-4">
-      <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-4">
+    <div className="flex flex-col items-center justify-center p-8 md:p-12 text-center rounded-2xl border border-white/[0.08] bg-[#121A2B]/60 backdrop-blur-sm my-4">
+      <div className="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-4">
         <Icon className="w-7 h-7" />
       </div>
-      <h3 className="text-lg font-semibold text-slate-100 mb-1">{title}</h3>
-      <p className="text-sm text-slate-400 max-w-sm mb-6 leading-relaxed">{description}</p>
+      <h3 className="text-lg font-semibold text-white mb-1">{title}</h3>
+      <p className="text-sm text-slate-300 max-w-sm mb-6 leading-relaxed">{description}</p>
       {actionText && onAction && (
         <button
           onClick={onAction}
-          className="inline-flex items-center space-x-2 px-4 py-2 rounded-xl text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/20"
+          className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25"
         >
           <span>{actionText}</span>
         </button>

@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import AppLayout from './components/layout/AppLayout';
 
+import LandingPage from './pages/LandingPage';
 // Auth Pages
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
@@ -49,7 +50,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<RootRedirect />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 

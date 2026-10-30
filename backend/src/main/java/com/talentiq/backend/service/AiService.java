@@ -15,8 +15,9 @@ public class AiService {
 
     private static final Logger log = LoggerFactory.getLogger(AiService.class);
 
-    private static final String PRIMARY_MODEL = "gemini-2.0-flash";
-    private static final String FALLBACK_MODEL = "gemini-1.5-flash";
+    private static final String PRIMARY_MODEL = "gemini-3.5-flash";
+    private static final String FALLBACK_MODEL = "gemini-3.5-flash-lite";
+    private static final String TERTIARY_MODEL = "gemini-3.6-flash";
 
     private final java.util.concurrent.ExecutorService executor = java.util.concurrent.Executors.newCachedThreadPool();
     private Client client;
@@ -96,33 +97,39 @@ public class AiService {
         Client c = getClient();
         try {
             java.util.concurrent.Future<String> future = executor.submit(() -> {
-                try {
-                    GenerateContentResponse response = c.models.generateContent(PRIMARY_MODEL, prompt, null);
-                    if (response != null && response.text() != null) {
-                        return response.text();
-                    }
-                } catch (ApiException e) {
-                    int code = e.code();
-                    log.warn("Gemini API call to {} returned status {}. Attempting fallback to {}.", PRIMARY_MODEL, code, FALLBACK_MODEL);
-                    if (code == 429 || code == 503 || code == 404 || code == 500) {
-                        try {
-                            if (code == 429) Thread.sleep(500);
-                            GenerateContentResponse fallbackResponse = c.models.generateContent(FALLBACK_MODEL, prompt, null);
-                            if (fallbackResponse != null && fallbackResponse.text() != null) {
-                                return fallbackResponse.text();
-                            }
-                        } catch (Exception fallbackEx) {
-                            log.error("Fallback to {} also failed: {}", FALLBACK_MODEL, fallbackEx.getMessage());
+                String[] candidateModels = { PRIMARY_MODEL, FALLBACK_MODEL, TERTIARY_MODEL };
+                Exception lastException = null;
+
+                for (int i = 0; i < candidateModels.length; i++) {
+                    String modelName = candidateModels[i];
+                    try {
+                        GenerateContentResponse response = c.models.generateContent(modelName, prompt, null);
+                        if (response != null && response.text() != null && !response.text().isBlank()) {
+                            return response.text();
+                        }
+                    } catch (Exception e) {
+                        lastException = e;
+                        log.warn("Gemini API call to {} failed: {}. {} left.",
+                                modelName, e.getMessage(), (candidateModels.length - 1 - i));
+                        if (i < candidateModels.length - 1) {
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException ignored) {}
                         }
                     }
-                    throw handleApiException(e);
+                }
+
+                if (lastException instanceof ApiException ae) {
+                    throw handleApiException(ae);
+                } else if (lastException != null) {
+                    throw new RuntimeException("AI processing failed: " + sanitizeErrorMessage(lastException.getMessage()), lastException);
                 }
                 throw new RuntimeException("Gemini returned an empty response.");
             });
 
-            return future.get(8, java.util.concurrent.TimeUnit.SECONDS);
+            return future.get(25, java.util.concurrent.TimeUnit.SECONDS);
         } catch (java.util.concurrent.TimeoutException te) {
-            log.warn("Gemini API call timed out after 8 seconds.");
+            log.warn("Gemini API call timed out after 25 seconds.");
             throw new RuntimeException("AI processing timed out. Using high-accuracy rule-based engine.");
         } catch (java.util.concurrent.ExecutionException ee) {
             Throwable cause = ee.getCause() != null ? ee.getCause() : ee;

@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Sparkles, LogOut, User as UserIcon, Bell, CheckCircle2, AlertCircle, ChevronRight } from 'lucide-react';
+import { Menu, X, Sparkles, LogOut, User as UserIcon, Bell, CheckCircle2, AlertCircle, ChevronRight, Search } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import candidateService from '../../services/candidateService';
+import TalentIQLogo from './TalentIQLogo';
 
 const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
   const { user, logout, isRecruiter } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [candidateProfile, setCandidateProfile] = useState(null);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const notificationRef = useRef(null);
@@ -36,33 +39,48 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
   };
 
   const homePath = isRecruiter ? '/recruiter/dashboard' : '/candidate/dashboard';
-  const hasDecision = candidateProfile?.submissionStatus && ['SHORTLISTED', 'REJECTED', 'VALIDATED'].includes(candidateProfile.submissionStatus);
+  const hasDecision =
+    candidateProfile?.submissionStatus &&
+    ['SHORTLISTED', 'REJECTED', 'VALIDATED'].includes(candidateProfile.submissionStatus);
+
+  // Compute breadcrumb title
+  const getPageTitle = () => {
+    const p = location.pathname;
+    if (p.includes('/dashboard')) return 'Dashboard Overview';
+    if (p.includes('/jobs')) return 'Job Openings & Requirements';
+    if (p.includes('/candidates')) return 'Candidate Directory & AI Analysis';
+    if (p.includes('/copilot')) return 'AI Recruiter Copilot';
+    if (p.includes('/interview')) return 'Interview Assistant';
+    if (p.includes('/analytics')) return 'Recruitment Analytics & Insights';
+    if (p.includes('/resume')) return 'Resume Parsing & Upload';
+    if (p.includes('/matches')) return 'Job Matches & Alignment';
+    if (p.includes('/skills')) return 'Skill Gap Analysis';
+    if (p.includes('/profile')) return 'Account Profile & Settings';
+    return 'Workspace';
+  };
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-slate-800 bg-slate-950/80 px-4 md:px-6 backdrop-blur-md">
-      {/* Left side: Hamburger + Brand */}
-      <div className="flex items-center space-x-3">
+    <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-white/[0.08] bg-[#080B16]/90 px-4 md:px-6 backdrop-blur-md select-none">
+      {/* Left side: Hamburger (mobile) + Brand Logo + Breadcrumb */}
+      <div className="flex items-center space-x-3 sm:space-x-4">
         <button
           onClick={toggleSidebar}
-          className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 md:hidden transition-colors"
-          aria-label="Toggle Navigation"
+          className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-[#121A2B] md:hidden transition-colors"
+          aria-label="Toggle Navigation Menu"
         >
           {isSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
 
-        <Link to={homePath} className="flex items-center space-x-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center text-white shadow-md shadow-indigo-600/30 group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5" />
-          </div>
-          <div className="flex flex-col">
-            <div className="flex items-center space-x-1.5">
-              <span className="font-bold text-lg text-white tracking-tight">TalentIQ</span>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-                AI Platform
-              </span>
-            </div>
-          </div>
+        <Link to={homePath} className="flex items-center">
+          <TalentIQLogo size="md" />
         </Link>
+
+        {/* Desktop Breadcrumb divider */}
+        <div className="hidden lg:flex items-center space-x-2 pl-3 border-l border-white/[0.08] text-xs">
+          <span className="text-slate-400 font-medium">Platform</span>
+          <span className="text-slate-500">/</span>
+          <span className="text-white font-semibold">{getPageTitle()}</span>
+        </div>
       </div>
 
       {/* Right side: Notifications + User Profile Chip & Actions */}
@@ -79,9 +97,9 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
                   ? candidateProfile.submissionStatus === 'SHORTLISTED'
                     ? 'text-purple-300 bg-purple-950/40 border-purple-500/40 hover:bg-purple-900/50'
                     : candidateProfile.submissionStatus === 'REJECTED'
-                    ? 'text-red-300 bg-red-950/40 border-red-500/40 hover:bg-red-900/50'
+                    ? 'text-rose-300 bg-rose-950/40 border-rose-500/40 hover:bg-rose-900/50'
                     : 'text-emerald-300 bg-emerald-950/40 border-emerald-500/40 hover:bg-emerald-900/50'
-                  : 'text-slate-400 bg-slate-900 border-slate-800 hover:text-white'
+                  : 'text-slate-400 bg-[#121A2B] border-white/[0.08] hover:text-white'
               }`}
             >
               <Bell className="w-4 h-4" />
@@ -91,7 +109,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
                     candidateProfile.submissionStatus === 'SHORTLISTED'
                       ? 'bg-purple-400'
                       : candidateProfile.submissionStatus === 'REJECTED'
-                      ? 'bg-red-400'
+                      ? 'bg-rose-400'
                       : 'bg-emerald-400'
                   }`}
                 />
@@ -100,23 +118,23 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
 
             {/* Notification Dropdown */}
             {isNotificationOpen && (
-              <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-slate-950 border border-slate-800 shadow-2xl p-4 z-50 space-y-3">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+              <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-[#0D1222] border border-white/[0.12] shadow-2xl p-4 z-50 space-y-3">
+                <div className="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
                     Application Notifications
                   </span>
-                  <span className="text-[10px] text-slate-500">Recruiter Updates</span>
+                  <span className="text-[10px] text-slate-400">Recruiter Updates</span>
                 </div>
 
                 {candidateProfile?.submissionStatus === 'SHORTLISTED' ? (
-                  <div className="p-3 rounded-xl bg-purple-950/40 border border-purple-500/40 space-y-2">
+                  <div className="p-3.5 rounded-xl bg-purple-950/40 border border-purple-500/40 space-y-2">
                     <div className="flex items-center space-x-2">
                       <Sparkles className="w-4 h-4 text-purple-400" />
                       <span className="text-xs font-black text-purple-300 uppercase tracking-wider">
                         SELECTED / SHORTLISTED
                       </span>
                     </div>
-                    <p className="text-xs text-slate-200">
+                    <p className="text-xs text-slate-200 leading-relaxed">
                       {candidateProfile.validationNotes ||
                         'Great news! The recruiter has reviewed your resume and you have been SHORTLISTED for interview rounds!'}
                     </p>
@@ -135,14 +153,14 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
                     </Link>
                   </div>
                 ) : candidateProfile?.submissionStatus === 'REJECTED' ? (
-                  <div className="p-3 rounded-xl bg-red-950/40 border border-red-500/40 space-y-2">
+                  <div className="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/40 space-y-2">
                     <div className="flex items-center space-x-2">
-                      <AlertCircle className="w-4 h-4 text-red-400" />
-                      <span className="text-xs font-black text-red-300 uppercase tracking-wider">
+                      <AlertCircle className="w-4 h-4 text-rose-400" />
+                      <span className="text-xs font-black text-rose-300 uppercase tracking-wider">
                         APPLICATION REJECTED
                       </span>
                     </div>
-                    <p className="text-xs text-slate-200">
+                    <p className="text-xs text-slate-200 leading-relaxed">
                       {candidateProfile.validationNotes ||
                         'The recruiter evaluated your resume and your profile was not selected for this role. Check your skill gaps to improve.'}
                     </p>
@@ -154,20 +172,21 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
                     <Link
                       to="/candidate/skills"
                       onClick={() => setIsNotificationOpen(false)}
-                      className="inline-flex items-center space-x-1 text-xs font-bold text-red-400 hover:text-red-300"
+                      className="inline-flex items-center space-x-1 text-xs font-bold text-rose-400 hover:text-rose-300"
                     >
                       <span>View Skill Gaps & Improve</span>
                       <ChevronRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 ) : candidateProfile?.submissionStatus === 'VALIDATED' ? (
-                  <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/40 space-y-1.5">
+                  <div className="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 space-y-1.5">
                     <div className="flex items-center space-x-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                       <span className="text-xs font-bold text-emerald-300">Application Validated</span>
                     </div>
-                    <p className="text-xs text-slate-200">
-                      {candidateProfile.validationNotes || 'Your resume has been validated and accepted into the recruiter talent pool.'}
+                    <p className="text-xs text-slate-200 leading-relaxed">
+                      {candidateProfile.validationNotes ||
+                        'Your resume has been validated and accepted into the recruiter talent pool.'}
                     </p>
                   </div>
                 ) : (
@@ -180,24 +199,28 @@ const Navbar = ({ toggleSidebar, isSidebarOpen }) => {
           </div>
         )}
 
+        {/* User Profile Chip */}
         {user && (
-          <div className="hidden sm:flex items-center space-x-3 pl-3 border-l border-slate-800">
-            <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300">
-              <UserIcon className="w-4 h-4" />
+          <div className="hidden sm:flex items-center space-x-3 pl-3 border-l border-white/[0.08]">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-sm">
+              {user.name ? user.name[0].toUpperCase() : 'U'}
             </div>
             <div className="flex flex-col text-right">
-              <span className="text-xs font-semibold text-slate-200">{user.name || user.email?.split('@')[0]}</span>
-              <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-white truncate max-w-[140px]">
+                {user.name || user.email?.split('@')[0]}
+              </span>
+              <span className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">
                 {user.role}
               </span>
             </div>
           </div>
         )}
 
+        {/* Sign Out Button */}
         <button
           onClick={handleLogout}
           title="Sign out"
-          className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-300 hover:text-red-400 hover:bg-red-950/20 border border-slate-800 hover:border-red-500/30 transition-all"
+          className="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-rose-400 hover:bg-rose-950/20 border border-white/[0.08] hover:border-rose-500/30 transition-all cursor-pointer"
         >
           <LogOut className="w-4 h-4" />
           <span className="hidden sm:inline">Logout</span>

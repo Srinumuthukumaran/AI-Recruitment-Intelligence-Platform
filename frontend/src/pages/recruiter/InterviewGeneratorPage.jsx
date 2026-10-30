@@ -118,14 +118,13 @@ const InterviewGeneratorPage = () => {
 
   const handleDownload = () => {
     if (!result?.questions) return;
-    const formatted = `TalentIQ AI Interview Questions
-Job: ${result.jobTitle}
-Candidate: ${result.candidateName}
-Difficulty: ${result.difficulty}
-Date: ${new Date().toLocaleDateString()}
-==================================================
-
-` +
+    const formatted =
+      `TalentIQ AI Interview Questions\n` +
+      `Job: ${result.jobTitle}\n` +
+      `Candidate: ${result.candidateName}\n` +
+      `Difficulty: ${result.difficulty}\n` +
+      `Date: ${new Date().toLocaleDateString()}\n` +
+      `==================================================\n\n` +
       result.questions
         .map(
           (q, i) =>
@@ -144,16 +143,16 @@ Date: ${new Date().toLocaleDateString()}
 
   const getCategoryIcon = (category) => {
     const c = category?.toLowerCase() || '';
-    if (c.includes('tech')) return <Code2 className="w-4 h-4 text-indigo-400" />;
-    if (c.includes('project')) return <Cpu className="w-4 h-4 text-purple-400" />;
+    if (c.includes('tech')) return <Code2 className="w-4 h-4 text-purple-400" />;
+    if (c.includes('project')) return <Cpu className="w-4 h-4 text-sky-400" />;
     if (c.includes('problem')) return <HelpCircle className="w-4 h-4 text-amber-400" />;
     return <MessageSquare className="w-4 h-4 text-emerald-400" />;
   };
 
   const getCategoryColor = (category) => {
     const c = category?.toLowerCase() || '';
-    if (c.includes('tech')) return 'border-indigo-500/30 bg-indigo-950/20 text-indigo-300';
-    if (c.includes('project')) return 'border-purple-500/30 bg-purple-950/20 text-purple-300';
+    if (c.includes('tech')) return 'border-purple-500/30 bg-purple-950/20 text-purple-300';
+    if (c.includes('project')) return 'border-sky-500/30 bg-sky-950/20 text-sky-300';
     if (c.includes('problem')) return 'border-amber-500/30 bg-amber-950/20 text-amber-300';
     return 'border-emerald-500/30 bg-emerald-950/20 text-emerald-300';
   };
@@ -163,38 +162,41 @@ Date: ${new Date().toLocaleDateString()}
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-fadeIn">
       {/* Header */}
-      <div>
+      <div className="pb-2 border-b border-white/[0.08]">
+        <div className="flex items-center space-x-2 text-xs font-bold text-purple-400 uppercase tracking-wider mb-1">
+          <FileQuestion className="w-4 h-4" />
+          <span>Evaluation Assistant</span>
+        </div>
         <div className="flex items-center space-x-2">
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center space-x-2">
-            <FileQuestion className="w-6 h-6 text-indigo-400" />
-            <span>AI Interview Question Generator</span>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            AI Interview Question Generator
           </h1>
-          <span className="text-[10px] font-bold uppercase tracking-wide bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-2 py-0.5 rounded-full">
-            Tailored Evaluator
+          <span className="text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-purple-500 to-sky-500 text-white px-2 py-0.5 rounded-full shadow-sm">
+            4-Category Engine
           </span>
         </div>
-        <p className="text-sm text-slate-400 mt-1">
-          Synthesize personalized technical, project, problem-solving, and behavioral questions calibrated to the candidate's exact resume.
+        <p className="text-xs sm:text-sm text-slate-300 mt-1">
+          Synthesize role-calibrated technical, project, problem-solving, and behavioral questions calibrated to the candidate's exact resume.
         </p>
       </div>
 
       <ErrorAlert message={error} onRetry={handleGenerate} />
 
       {/* Generator Controls Card */}
-      <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-6">
+      <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/[0.08] bg-[#121A2B] space-y-6 shadow-sm">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Job select */}
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
-              <Briefcase className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Target Job</span>
+            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+              <Briefcase className="w-3.5 h-3.5 text-purple-400" />
+              <span>Target Job Position</span>
             </label>
             <select
               value={selectedJobId}
               onChange={(e) => setSelectedJobId(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs font-medium text-slate-200 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#080B16] border border-white/[0.12] text-xs font-semibold text-white focus:outline-none focus:border-purple-500"
             >
               {jobs.map((j) => (
                 <option key={j.id} value={String(j.id)}>
@@ -206,14 +208,14 @@ Date: ${new Date().toLocaleDateString()}
 
           {/* Candidate select */}
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
-              <User className="w-3.5 h-3.5 text-purple-400" />
+            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+              <User className="w-3.5 h-3.5 text-sky-400" />
               <span>Target Candidate</span>
             </label>
             <select
               value={selectedCandidateId}
               onChange={(e) => setSelectedCandidateId(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs font-medium text-slate-200 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#080B16] border border-white/[0.12] text-xs font-semibold text-white focus:outline-none focus:border-purple-500"
             >
               {candidates.map((c) => (
                 <option key={c.id} value={String(c.id)}>
@@ -225,14 +227,14 @@ Date: ${new Date().toLocaleDateString()}
 
           {/* Difficulty Level */}
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
               <Sliders className="w-3.5 h-3.5 text-amber-400" />
               <span>Difficulty Level</span>
             </label>
             <select
               value={difficulty}
               onChange={(e) => setDifficulty(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs font-medium text-slate-200 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#080B16] border border-white/[0.12] text-xs font-semibold text-white focus:outline-none focus:border-purple-500"
             >
               <option value="Junior / Entry-level">Junior / Entry-level</option>
               <option value="Mid-level">Mid-level (Default)</option>
@@ -243,28 +245,28 @@ Date: ${new Date().toLocaleDateString()}
 
           {/* Question Count */}
           <div>
-            <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
+            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center space-x-1.5">
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
               <span>Question Count</span>
             </label>
             <select
               value={questionCount}
               onChange={(e) => setQuestionCount(Number(e.target.value))}
-              className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs font-medium text-slate-200 focus:outline-none focus:border-indigo-500"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#080B16] border border-white/[0.12] text-xs font-semibold text-white focus:outline-none focus:border-purple-500"
             >
               <option value={4}>4 Questions (1 per category)</option>
-              <option value={5}>5 Questions</option>
+              <option value={5}>5 Questions (Balanced)</option>
               <option value={8}>8 Questions (In-depth)</option>
               <option value={10}>10 Questions (Comprehensive)</option>
             </select>
           </div>
         </div>
 
-        <div className="flex items-center justify-end pt-4 border-t border-slate-800">
+        <div className="flex items-center justify-end pt-4 border-t border-white/[0.08]">
           <button
             onClick={handleGenerate}
             disabled={isGenerating}
-            className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-600/25 disabled:opacity-50"
+            className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 transition-all shadow-lg shadow-purple-600/25 disabled:opacity-50 cursor-pointer"
           >
             {isGenerating ? (
               <>
@@ -286,7 +288,7 @@ Date: ${new Date().toLocaleDateString()}
         <div className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <h2 className="text-lg font-bold text-white">
+              <h2 className="text-lg font-extrabold text-white">
                 Generated Questions for {result.candidateName}
               </h2>
               <p className="text-xs text-slate-400">
@@ -297,7 +299,7 @@ Date: ${new Date().toLocaleDateString()}
             <div className="flex items-center space-x-2.5">
               <button
                 onClick={handleCopyAll}
-                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
+                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#121A2B] hover:bg-[#172238] text-slate-300 border border-white/[0.08] transition-colors cursor-pointer"
               >
                 {copiedAll ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copiedAll ? 'Copied All!' : 'Copy All'}</span>
@@ -305,7 +307,7 @@ Date: ${new Date().toLocaleDateString()}
 
               <button
                 onClick={handleDownload}
-                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
+                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#121A2B] hover:bg-[#172238] text-slate-300 border border-white/[0.08] transition-colors cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download (.txt)</span>
@@ -314,7 +316,7 @@ Date: ${new Date().toLocaleDateString()}
               <button
                 onClick={handleGenerate}
                 disabled={isGenerating}
-                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 transition-colors"
+                className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 transition-colors cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Regenerate</span>
@@ -327,12 +329,12 @@ Date: ${new Date().toLocaleDateString()}
             {result.questions?.map((q, idx) => (
               <div
                 key={idx}
-                className="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-all group"
+                className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] flex flex-col justify-between hover:border-purple-500/40 transition-all group shadow-sm"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
                     <span
-                      className={`inline-flex items-center space-x-1.5 text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border ${getCategoryColor(
+                      className={`inline-flex items-center space-x-1.5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg border ${getCategoryColor(
                         q.category
                       )}`}
                     >
@@ -342,7 +344,7 @@ Date: ${new Date().toLocaleDateString()}
 
                     <button
                       onClick={() => handleCopySingle(q.question, idx)}
-                      className="text-slate-500 hover:text-slate-200 p-1 rounded-lg hover:bg-slate-800 transition-colors"
+                      className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.06] transition-colors cursor-pointer"
                       title="Copy Question"
                     >
                       {copiedId === idx ? (
@@ -353,20 +355,20 @@ Date: ${new Date().toLocaleDateString()}
                     </button>
                   </div>
 
-                  <h3 className="text-sm sm:text-base font-semibold text-slate-100 leading-snug">
+                  <h3 className="text-sm sm:text-base font-semibold text-white leading-snug">
                     {idx + 1}. {q.question}
                   </h3>
 
                   {q.focusArea && (
-                    <div className="mt-3 text-[11px] text-indigo-300 flex items-center space-x-1">
+                    <div className="mt-3 text-xs text-purple-300 flex items-center space-x-1">
                       <strong>Focus:</strong>
                       <span>{q.focusArea}</span>
                     </div>
                   )}
 
                   {q.guidance && (
-                    <div className="mt-2.5 p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-400 leading-relaxed">
-                      <strong className="text-slate-300 block mb-0.5">Evaluation Guidance:</strong>
+                    <div className="mt-3 p-3 rounded-xl bg-[#080B16] border border-white/[0.06] text-xs text-slate-300 leading-relaxed">
+                      <strong className="text-white block mb-0.5">Evaluation Guidance:</strong>
                       {q.guidance}
                     </div>
                   )}
@@ -379,7 +381,7 @@ Date: ${new Date().toLocaleDateString()}
         <EmptyState
           icon={FileQuestion}
           title="No questions generated yet"
-          description="Select a job and candidate above, then click 'Generate Questions' to synthesize role-calibrated interview inquiries."
+          description="Select a job position and candidate above, then click 'Generate Questions' to synthesize tailored interview inquiries."
           actionText="Generate Sample Questions"
           onAction={handleGenerate}
         />

@@ -111,7 +111,7 @@ const SkillGapPage = () => {
             <select
               value={selectedJobId}
               onChange={handleJobChange}
-              className="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-medium text-slate-200 focus:outline-none focus:border-indigo-500"
+              className="px-3.5 py-2 rounded-xl bg-[#121A2B] border border-white/[0.1] text-xs font-medium text-slate-200 focus:outline-none focus:border-purple-500"
             >
               {jobs.map((j) => (
                 <option key={j.id} value={String(j.id)}>
@@ -132,9 +132,9 @@ const SkillGapPage = () => {
       {gapData && !isAnalyzing && (
         <div className="space-y-8">
           {/* Target Job Overview Card */}
-          <div className="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl shadow-purple-950/20">
             <div>
-              <span className="text-xs font-semibold text-indigo-400 uppercase tracking-wider block mb-1">
+              <span className="text-xs font-semibold text-purple-400 uppercase tracking-wider block mb-1">
                 Target Role
               </span>
               <h2 className="text-xl font-bold text-white">{gapData.jobTitle}</h2>
@@ -152,7 +152,7 @@ const SkillGapPage = () => {
           {/* Section 14: Skills You Have vs Skills to Improve */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Skills You Have */}
-            <div className="glass-card rounded-2xl p-6 border border-emerald-500/20 bg-emerald-950/10 space-y-4">
+            <div className="glass-card rounded-2xl p-6 border border-emerald-500/30 bg-emerald-950/20 space-y-4 shadow-lg">
               <div className="flex items-center space-x-2 text-emerald-400">
                 <CheckCircle2 className="w-5 h-5" />
                 <h3 className="text-sm font-bold uppercase tracking-wider text-slate-100">
@@ -165,7 +165,7 @@ const SkillGapPage = () => {
                   {gapData.skillsYouHave.map((skill, i) => (
                     <div
                       key={i}
-                      className="flex items-center space-x-2 py-2 px-3 rounded-xl bg-emerald-950/30 border border-emerald-500/20 text-xs text-slate-200 font-medium"
+                      className="flex items-center space-x-2 py-2 px-3 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-xs text-slate-200 font-medium"
                     >
                       <span className="text-emerald-400 font-bold">✓</span>
                       <span>{skill}</span>
@@ -180,7 +180,7 @@ const SkillGapPage = () => {
             </div>
 
             {/* Skills to Improve */}
-            <div className="glass-card rounded-2xl p-6 border border-amber-500/20 bg-amber-950/10 space-y-4">
+            <div className="glass-card rounded-2xl p-6 border border-amber-500/30 bg-amber-950/20 space-y-4 shadow-lg">
               <div className="flex items-center space-x-2 text-amber-400">
                 <AlertCircle className="w-5 h-5" />
                 <h3 className="text-sm font-bold uppercase tracking-wider text-slate-100">
@@ -193,7 +193,7 @@ const SkillGapPage = () => {
                   {gapData.skillsToImprove.map((item, i) => (
                     <div
                       key={i}
-                      className="flex items-center justify-between py-2 px-3 rounded-xl bg-amber-950/30 border border-amber-500/20 text-xs text-slate-200"
+                      className="flex items-center justify-between py-2 px-3 rounded-xl bg-amber-950/40 border border-amber-500/30 text-xs text-slate-200"
                     >
                       <div className="flex items-center space-x-1.5 font-medium truncate">
                         <span className="text-amber-400 font-bold">⚠</span>
@@ -219,11 +219,11 @@ const SkillGapPage = () => {
 
           {/* AI-Generated Learning Recommendations (Section 14) */}
           {gapData.skillsToImprove?.length > 0 && (
-            <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-6">
+            <div className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] space-y-6 shadow-xl shadow-purple-950/20">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-white flex items-center space-x-2">
-                    <Sparkles className="w-5 h-5 text-indigo-400" />
+                    <Sparkles className="w-5 h-5 text-purple-400" />
                     <span>Prioritized Learning Roadmap & Recommendations</span>
                   </h3>
                   <p className="text-xs text-slate-400 mt-0.5">
@@ -233,7 +233,7 @@ const SkillGapPage = () => {
 
                 <Link
                   to={`/candidate/interview?jobId=${selectedJobId}`}
-                  className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 transition-colors"
+                  className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 transition-colors"
                 >
                   <FileQuestion className="w-3.5 h-3.5" />
                   <span>Practice Questions</span>
@@ -244,7 +244,7 @@ const SkillGapPage = () => {
                 {gapData.skillsToImprove.map((item, idx) => (
                   <div
                     key={idx}
-                    className="p-5 rounded-2xl bg-slate-950/60 border border-slate-800/80 space-y-3"
+                    className="p-5 rounded-2xl bg-[#172238]/60 border border-white/[0.06] space-y-3"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
@@ -260,18 +260,18 @@ const SkillGapPage = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                      <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+                      <div className="p-3 rounded-xl bg-[#121A2B] border border-white/[0.06]">
                         <strong className="text-slate-400 uppercase tracking-wider text-[10px] block mb-1">
                           Why It Matters
                         </strong>
                         <p className="text-slate-300 leading-relaxed">{item.reason}</p>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-indigo-950/30 border border-indigo-500/20">
-                        <strong className="text-indigo-400 uppercase tracking-wider text-[10px] block mb-1">
+                      <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/30">
+                        <strong className="text-purple-400 uppercase tracking-wider text-[10px] block mb-1">
                           Recommended Action Path
                         </strong>
-                        <p className="text-indigo-200 leading-relaxed">{item.recommendation}</p>
+                        <p className="text-purple-200 leading-relaxed">{item.recommendation}</p>
                       </div>
                     </div>
                   </div>

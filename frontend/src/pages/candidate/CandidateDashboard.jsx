@@ -20,7 +20,7 @@ import jobService from '../../services/jobService';
 import { useAuth } from '../../context/AuthContext';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import ErrorAlert from '../../components/common/ErrorAlert';
-import MatchScoreBadge from '../../components/recruiter/MatchScoreBadge';
+import MatchScoreBadge, { RadialScoreRing } from '../../components/recruiter/MatchScoreBadge';
 
 const CandidateDashboard = () => {
   const { user } = useAuth();
@@ -93,10 +93,10 @@ const CandidateDashboard = () => {
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
-      <div className="rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-900 via-indigo-950/20 to-purple-950/30 p-6 sm:p-8 backdrop-blur-sm">
+      <div className="rounded-2xl border border-white/[0.08] bg-gradient-to-r from-[#121A2B] via-[#172238] to-[#121A2B] p-6 sm:p-8 backdrop-blur-md shadow-xl shadow-purple-950/20">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center space-x-2 text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2">
+            <div className="inline-flex items-center space-x-2 text-xs font-bold text-purple-400 uppercase tracking-wider mb-2">
               <Sparkles className="w-4 h-4" />
               <span>TalentIQ Career Intelligence</span>
             </div>
@@ -111,7 +111,7 @@ const CandidateDashboard = () => {
           <div className="flex items-center space-x-3 flex-shrink-0">
             <Link
               to="/candidate/resume"
-              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/20 transition-all"
+              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-600/25 transition-all"
             >
               <UploadCloud className="w-4 h-4" />
               <span>{hasResume ? 'Manage Resume' : 'Upload Resume'}</span>
@@ -119,9 +119,9 @@ const CandidateDashboard = () => {
 
             <Link
               to="/candidate/jobs"
-              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
+              className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-[#121A2B] hover:bg-[#172238] text-slate-200 border border-white/[0.1] hover:border-purple-500/40 transition-all"
             >
-              <Compass className="w-4 h-4 text-purple-400" />
+              <Compass className="w-4 h-4 text-sky-400" />
               <span>Browse Jobs</span>
             </Link>
           </div>
@@ -250,12 +250,12 @@ const CandidateDashboard = () => {
       {/* Top 4 Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Resume Status */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+        <div className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] flex flex-col justify-between hover:border-purple-500/30 transition-all">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Resume Status
             </span>
-            <FileText className="w-5 h-5 text-indigo-400" />
+            <FileText className="w-5 h-5 text-purple-400" />
           </div>
           <div className="my-3">
             {hasResume ? (
@@ -277,7 +277,7 @@ const CandidateDashboard = () => {
           </div>
           <Link
             to="/candidate/resume"
-            className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center space-x-1"
+            className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center space-x-1"
           >
             <span>{hasResume ? 'Manage resume' : 'Upload now'}</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -285,12 +285,12 @@ const CandidateDashboard = () => {
         </div>
 
         {/* Recruiter Submission & Validation Status (Section Link to Recruiter) */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+        <div className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] flex flex-col justify-between hover:border-purple-500/30 transition-all">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Recruiter Status
             </span>
-            <Briefcase className="w-5 h-5 text-purple-400" />
+            <Briefcase className="w-5 h-5 text-sky-400" />
           </div>
           <div className="my-3">
             {profile?.submissionStatus === 'SHORTLISTED' ? (
@@ -334,7 +334,7 @@ const CandidateDashboard = () => {
           </div>
           <Link
             to="/candidate/resume"
-            className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center space-x-1"
+            className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center space-x-1"
           >
             <span>Track application</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -342,12 +342,12 @@ const CandidateDashboard = () => {
         </div>
 
         {/* Profile Completion */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+        <div className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] flex flex-col justify-between hover:border-purple-500/30 transition-all">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Profile Completion
             </span>
-            <CheckCircle2 className="w-5 h-5 text-indigo-400" />
+            <CheckCircle2 className="w-5 h-5 text-emerald-400" />
           </div>
           <div className="my-3">
             <div className="text-3xl font-extrabold text-white">
@@ -355,7 +355,7 @@ const CandidateDashboard = () => {
             </div>
             <div className="h-2 w-full bg-slate-800 rounded-full mt-2 overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all"
+                className="h-full bg-gradient-to-r from-violet-500 to-sky-400 rounded-full transition-all"
                 style={{ width: hasResume ? '100%' : '50%' }}
               />
             </div>
@@ -365,7 +365,7 @@ const CandidateDashboard = () => {
           </div>
           <Link
             to="/candidate/profile"
-            className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center space-x-1"
+            className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center space-x-1"
           >
             <span>Edit profile</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -373,22 +373,25 @@ const CandidateDashboard = () => {
         </div>
 
         {/* Best Job Match */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
+        <div className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] flex flex-col justify-between hover:border-purple-500/30 transition-all">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
               Best Job Match
             </span>
-            <Award className="w-5 h-5 text-emerald-400" />
+            <Award className="w-5 h-5 text-amber-400" />
           </div>
-          <div className="my-3">
+          <div className="my-2">
             {bestMatch ? (
-              <div>
-                <div className="text-3xl font-extrabold text-emerald-400">
-                  {bestMatch.matchScore}%
+              <div className="flex items-center space-x-3">
+                <RadialScoreRing score={bestMatch.matchScore} size={58} strokeWidth={5} />
+                <div className="overflow-hidden">
+                  <div className="text-xl font-extrabold text-white">
+                    {bestMatch.matchScore}%
+                  </div>
+                  <p className="text-xs text-slate-300 font-semibold truncate max-w-[130px]">
+                    {bestMatch.job?.title}
+                  </p>
                 </div>
-                <p className="text-xs text-slate-300 font-semibold mt-1 truncate">
-                  {bestMatch.job?.title}
-                </p>
               </div>
             ) : (
               <div>
@@ -399,7 +402,7 @@ const CandidateDashboard = () => {
           </div>
           <Link
             to={bestMatch ? `/candidate/matches` : `/candidate/jobs`}
-            className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center space-x-1"
+            className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center space-x-1"
           >
             <span>{bestMatch ? 'Inspect match breakdown' : 'Explore opportunities'}</span>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -409,16 +412,16 @@ const CandidateDashboard = () => {
 
       {/* 2 Column Section: Recommended Jobs & Skill Gap Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recommended Jobs (Section 15 & 16) */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+        {/* Recommended Jobs */}
+        <div className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-base font-bold text-white flex items-center space-x-2">
-              <Compass className="w-4 h-4 text-indigo-400" />
+              <Compass className="w-4 h-4 text-sky-400" />
               <span>Recommended Jobs for You</span>
             </h3>
             <Link
               to="/candidate/jobs"
-              className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center space-x-1"
+              className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center space-x-1"
             >
               <span>View all ({jobs.length})</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -435,7 +438,7 @@ const CandidateDashboard = () => {
                   <Link
                     key={job.id}
                     to={`/candidate/jobs/${job.id}`}
-                    className="block p-4 rounded-xl border border-slate-800 bg-slate-950/60 hover:border-indigo-500/40 hover:bg-slate-900/60 transition-all"
+                    className="block p-4 rounded-xl border border-white/[0.06] bg-[#172238]/60 hover:border-purple-500/40 hover:bg-[#172238] transition-all"
                   >
                     <div className="flex items-start justify-between">
                       <div>
@@ -448,7 +451,7 @@ const CandidateDashboard = () => {
                       {jobMatch ? (
                         <MatchScoreBadge score={jobMatch.matchScore} size="sm" />
                       ) : (
-                        <span className="text-[10px] font-medium text-slate-400 bg-slate-800 px-2 py-0.5 rounded-md">
+                        <span className="text-[10px] font-medium text-slate-400 bg-white/[0.06] px-2 py-0.5 rounded-md">
                           Open Role
                         </span>
                       )}
@@ -458,7 +461,7 @@ const CandidateDashboard = () => {
                       {job.requiredSkills?.split(',').slice(0, 4).map((s, i) => (
                         <span
                           key={i}
-                          className="text-[10px] font-medium bg-slate-800/80 text-slate-300 px-2 py-0.5 rounded-md"
+                          className="text-[10px] font-medium bg-[#121A2B] text-slate-300 px-2 py-0.5 rounded-md border border-white/[0.06]"
                         >
                           {s.trim()}
                         </span>
@@ -471,8 +474,8 @@ const CandidateDashboard = () => {
           )}
         </div>
 
-        {/* Skill Gap & Strengths Summary (Section 15) */}
-        <div className="glass-card rounded-2xl p-6 border border-slate-800 space-y-6">
+        {/* Skill Gap & Strengths Summary */}
+        <div className="glass-card rounded-2xl p-6 border border-white/[0.08] bg-[#121A2B] space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="text-base font-bold text-white flex items-center space-x-2">
               <TrendingUp className="w-4 h-4 text-purple-400" />
@@ -480,7 +483,7 @@ const CandidateDashboard = () => {
             </h3>
             <Link
               to="/candidate/skills"
-              className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center space-x-1"
+              className="text-xs font-semibold text-purple-400 hover:text-purple-300 flex items-center space-x-1"
             >
               <span>Full Analysis</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -537,11 +540,11 @@ const CandidateDashboard = () => {
             )}
           </div>
 
-          <div className="p-3.5 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-xs text-indigo-200 flex items-center justify-between">
+          <div className="p-3.5 rounded-xl bg-purple-950/20 border border-purple-500/20 text-xs text-purple-200 flex items-center justify-between">
             <span>Want detailed learning recommendations for open jobs?</span>
             <Link
               to="/candidate/skills"
-              className="font-bold underline text-indigo-300 hover:text-white"
+              className="font-bold underline text-purple-300 hover:text-white"
             >
               Analyze
             </Link>

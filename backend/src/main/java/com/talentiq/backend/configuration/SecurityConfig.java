@@ -52,13 +52,26 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/assets/**",
+                                "/favicon.ico",
+                                "/*.js",
+                                "/*.css",
+                                "/*.svg",
+                                "/*.png",
+                                "/*.json",
+                                "/login",
+                                "/register",
+                                "/recruiter/**",
+                                "/candidate/**",
                                 "/api/test",
                                 "/api/ai/test",
                                 "/api/auth/register",
                                 "/api/auth/login"
                         ).permitAll()
-
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll()
                 )
 
                 .addFilterBefore(

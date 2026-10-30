@@ -22,7 +22,12 @@ public class CopilotController {
         String question = (String) request.get("question");
         Long jobId = null;
         if (request.get("jobId") != null) {
-            jobId = Long.valueOf(request.get("jobId").toString());
+            String jobIdStr = request.get("jobId").toString().trim();
+            if (!jobIdStr.isEmpty() && !"null".equalsIgnoreCase(jobIdStr)) {
+                try {
+                    jobId = Long.valueOf(jobIdStr);
+                } catch (NumberFormatException ignored) {}
+            }
         }
         return copilotService.askCopilot(question, jobId);
     }
