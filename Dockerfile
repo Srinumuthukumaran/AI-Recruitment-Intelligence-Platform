@@ -32,12 +32,19 @@ WORKDIR /app
 
 # Non-root application user
 RUN addgroup -S talentiq && adduser -S talentiq -G talentiq
+
+# Pre-create application directories with full ownership for non-root user
+RUN mkdir -p /app/data /app/uploads /tmp \
+    && chown -R talentiq:talentiq /app /tmp \
+    && chmod -R 775 /app /tmp
+
 USER talentiq
 
 # Copy the executable fat JAR
 COPY --from=backend-builder --chown=talentiq:talentiq /app/backend/target/*.jar app.jar
 
 ENV PORT=8080
+ENV SPRING_PROFILES_ACTIVE=prod
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
